@@ -1,0 +1,86 @@
+﻿
+@model Apontador_RodrigoHideki.Models.PagedList<Apontador_RodrigoHideki.Models.Apontador>
+
+@{
+    /**/
+
+    ViewBag.Title = "Apontador";
+}
+
+<link rel="stylesheet" href="~/Content/customComponent.css" type="text/css" />
+
+<h1><img src="~/Imagens/logo_apontador.png" class="rounded float-left" alt="..."></h1>
+<div class="well">
+    @using (Html.BeginForm("index", null, FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="input-group">
+
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control form-control-border"
+                           style="display: inline" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-pesquisar" type="submit">Pesquisar</button>
+                    </span>
+
+                </div>
+            </div>
+            <div class="pull-right col-lg-3">
+                <a class="btn btn-cadastreLocal" data-modal="" href="/Apontador/Create" id="btnCreate">
+                    CADASTRE UM LOCAL
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top:17px;">
+            @{
+                var grid = new WebGrid(
+                            canPage: true,
+                            rowsPerPage: Model.PageSize,
+                            canSort: true,
+                            ajaxUpdateContainerId: "grid");
+
+                grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                grid.Pager(WebGridPagerModes.All);
+
+                @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+                fillEmptyRows: false,
+                tableStyle: "table table-bordered table-hover",
+                mode: WebGridPagerModes.All,
+                columns: grid.Columns(
+
+                  grid.Column("Nome", "Nome", style: "col-lg-3"),
+                  grid.Column("Telefone", "Endereco", style: "col-lg-3"),
+                  grid.Column("Endereco", "Telefone", style: "col-lg-3"),
+
+                     grid.Column(header: "Ações", canSort: false, style: "action",
+                       format: @<text>
+                                @Html.Raw("<a data-modal='' href='/Apontador/details/" + item.Id + "' id='" + item.Id + "' title='Detail'> <span class='glyphicon glyphicon-search'> </span> </a>")
+                                @Html.Raw("<a data-modal='' href='/Apontador/edit/" + item.Id + "' id='" + item.Id + "' title='Edit'> <span class='glyphicon glyphicon-edit'> </span> </a>")
+                                @Html.Raw("<a data-modal='' href='/Apontador/delete/" + item.Id + "' id='" + item.Id + "' title='Delete'> <span class='glyphicon glyphicon-trash'> </span> </a>")
+                    </text>)
+
+               ));
+            }
+
+
+        </div>
+    }
+</div>
+
+
+<!-- modal placeholder-->
+<div id='apontadorModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='apontadorModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/apontador.js")
+}

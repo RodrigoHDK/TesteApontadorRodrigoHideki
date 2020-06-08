@@ -1,0 +1,18 @@
+﻿body {
+}
+
+.btn-cadastreLocal {
+    color: #8000ff;
+    background-color: #ffffff;
+    border-color: #8000ff
+}
+
+.btn-pesquisar {
+    color: #ffffff;
+    background-color: #ff8000;
+    border-color: #ff8000
+}
+
+.form-control-border {
+    border-color: #ff8000
+}
