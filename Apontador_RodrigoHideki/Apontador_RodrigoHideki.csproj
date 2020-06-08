@@ -151,6 +151,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\logo_apontador.png" />
+    <Content Include="ScriptsDatabase\InsertDbApontadors.sql" />
     <Content Include="Scripts\apontador.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
